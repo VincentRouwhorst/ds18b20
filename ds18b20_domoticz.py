@@ -51,20 +51,20 @@ if __name__ == '__main__':
      id = '28-0315902e73ff'
      idx = str(333)
      #print "Temp Aquarium : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str((gettemp(id)/float(1000)))
+     temp = str(gettemp(id)/float(1000))
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
 
      id = '28-0315a87126ff'
      idx = str(332)
      #print "Temp Aquarium koeler warm : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str((gettemp(id)/float(1000)))
+     temp = str(gettemp(id)/float(1000))
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
 
      id = '28-0315a88e3bff'
      idx = str(331)
      #print "Temp1 : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str((gettemp(id)/float(1000)))
+     temp = str(gettemp(id)/float(1000))
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
