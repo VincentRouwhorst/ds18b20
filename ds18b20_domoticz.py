@@ -14,7 +14,7 @@
 # Addition for updating to Domoticz
 #
 # Author : Vincent Rouwhorst
-# Date   : 30/06/2018
+# Date   : 21/07/2018
 #
 # Domoticz Json documentation
 # https://www.domoticz.com/wiki/Domoticz_API/JSON_URL's#Custom_Sensor
