@@ -7,5 +7,9 @@ idx = 333 temp aq = 28-0315902e73ff
 idx = 332 temp aq koeler = 28-0315a87126ff  
 idx = 331 temp 1 = 28-0315a88e3bff
 
+# temp min and max value incase of a sensor error
+min = 10
+max = 60
+
 Add script to crontap -e
 @reboot python /<path>/ds18b20_domoticz.py
