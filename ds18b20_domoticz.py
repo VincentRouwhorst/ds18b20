@@ -51,7 +51,7 @@ if __name__ == '__main__':
 # temp min and max value incase of a sensor error
 min = 10
 max = 60
-delay = 10
+delay = 3
 
   while True:
      id = '28-0315902e73ff'

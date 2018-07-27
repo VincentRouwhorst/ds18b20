@@ -10,6 +10,7 @@ idx = 331 temp 1 = 28-0315a88e3bff
 # temp min and max value incase of a sensor error
 min = 10
 max = 60
+delay = 10
 
 Add script to crontap -e
 @reboot python /<path>/ds18b20_domoticz.py
