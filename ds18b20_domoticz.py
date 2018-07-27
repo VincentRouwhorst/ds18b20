@@ -21,6 +21,7 @@
 #--------------------------------------
 
 import requests
+import time
 
 DOMOTICZ_IP = 'http://127.0.0.1:8080'
 
@@ -50,6 +51,7 @@ if __name__ == '__main__':
 # temp min and max value incase of a sensor error
 min = 10
 max = 60
+delay = 10
 
   while True:
      id = '28-0315902e73ff'
@@ -59,6 +61,7 @@ max = 60
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
          requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
+         time.sleep(delay)
 
      id = '28-0315a87126ff'
      idx = str(332)
@@ -67,6 +70,7 @@ max = 60
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
          requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
+         time.sleep(delay)
 
      id = '28-0315a88e3bff'
      idx = str(331)
@@ -75,3 +79,4 @@ max = 60
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
          requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
+         time.sleep(delay)
