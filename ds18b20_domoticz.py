@@ -49,34 +49,31 @@ if __name__ == '__main__':
   # Script has been called directly
 
 # temp min and max value incase of a sensor error
-min = 10
-max = 60
-delay = 3
+  min = 10.0
+  max = 60.0
+  #delay = 3
 
   while True:
      id = '28-0315902e73ff'
      idx = str(333)
      #print "Temp Aquarium : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str(gettemp(id)/float(1000))
+     temp = gettemp(id)/float(1000)
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-         time.sleep(delay)
+         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
 
      id = '28-0315a87126ff'
      idx = str(332)
      #print "Temp Aquarium koeler warm : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str(gettemp(id)/float(1000))
+     temp = gettemp(id)/float(1000)
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-         time.sleep(delay)
+         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
 
      id = '28-0315a88e3bff'
      idx = str(331)
      #print "Temp1 : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = str(gettemp(id)/float(1000))
+     temp = gettemp(id)/float(1000)
      #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
      if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-         time.sleep(delay)
+         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
