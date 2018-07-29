@@ -69,9 +69,9 @@ if __name__ == '__main__':
               siteresponse = r.json()
               #if siteresponse["status"] == 'OK':
                   #print('Response = OK')
-	          if siteresponse["status"] == 'ERR':
+	      if siteresponse["status"] == 'ERR':
                   # Write ERROR to Domoticz log
                   message = "ERROR writing sensor " + id_name[loopcounter]
-		          #print(message)
-		          requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=addlogmessage&message=" + message)
+		  #print(message)
+		  requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=addlogmessage&message=" + message)
           loopcounter += 1
