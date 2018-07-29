@@ -48,32 +48,30 @@ def gettemp(id):
 if __name__ == '__main__':
   # Script has been called directly
 
-# temp min and max value incase of a sensor error
+  # temp min and max value incase of a sensor error
   min = 10.0
   max = 60.0
-  #delay = 3
+  # list of sensors to process, loopcounter gives position value
+  id_list = ['28-0315902e73ff', '28-0315a87126ff', '28-0315a88e3bff']
+  id_name = ['Temp Aquarium : ', 'Temp Aquarium koeler warm : ', 'Temp1 :']
+  idx_list = ['333', '332', '331']
 
   while True:
-     id = '28-0315902e73ff'
-     idx = str(333)
-     #print "Temp Aquarium : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = gettemp(id)/float(1000)
-     #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-     if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
-
-     id = '28-0315a87126ff'
-     idx = str(332)
-     #print "Temp Aquarium koeler warm : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = gettemp(id)/float(1000)
-     #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-     if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
-
-     id = '28-0315a88e3bff'
-     idx = str(331)
-     #print "Temp1 : " + '{:.3f}'.format(gettemp(id)/float(1000))
-     temp = gettemp(id)/float(1000)
-     #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + temp)
-     if temp >= min and temp <= max:
-         requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx + "&nvalue=0&svalue=" + str(temp))
+      loopcounter = 0
+      for id in id_list:
+          #print id_name[loopcounter] + '{:.3f}'.format(gettemp(id)/float(1000))
+          temp = gettemp(id)/float(1000)
+          #print('temp : ', temp)
+          # filter temp min and max value incase of a sensor error
+          if temp >= min and temp <= max:
+              #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx_list[loopcounter] + "&nvalue=0&svalue=" + str(temp))
+              r = requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx_list[loopcounter] + "&nvalue=0&svalue=" + str(temp))
+              siteresponse = r.json()
+              #if siteresponse["status"] == 'OK':
+                  #print('Response = OK')
+	          if siteresponse["status"] == 'ERR':
+                  # Write ERROR to Domoticz log
+                  message = "ERROR writing sensor " + id_name[loopcounter]
+		          #print(message)
+		          requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=addlogmessage&message=" + message)
+          loopcounter += 1
