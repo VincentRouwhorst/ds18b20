@@ -52,16 +52,17 @@ if __name__ == '__main__':
   min = 10.0
   max = 60.0
   # list of sensors to process, loopcounter gives position value
-  id_list = ['28-0315902e73ff', '28-0315a87126ff', '28-0315a88e3bff']
-  id_name = ['Temp Aquarium : ', 'Temp Aquarium koeler warm : ', 'Temp1 :']
-  idx_list = ['333', '332', '331']
+  # old id_list = ['28-0315902e73ff', '28-0315a87126ff', '28-0315a88e3bff']
+  id_list = ['28-0317303a5bff', '28-0315a87126ff', '28-0315a88e3bff', '28-0517608afdff']
+  id_name = ['Temp Aquarium : ', 'Temp Aquarium koeler warm : ', 'Temp1 : ', 'Temp-licht : ']
+  idx_list = ['333', '332', '331', '7391']
 
   while True:
       loopcounter = 0
       for id in id_list:
           #print id_name[loopcounter] + '{:.3f}'.format(gettemp(id)/float(1000))
           temp = gettemp(id)/float(1000)
-          #print('temp : ', temp)
+          print('temp : ', temp)
           # filter temp min and max value incase of a sensor error
           if temp >= min and temp <= max:
               #print(DOMOTICZ_IP + "/json.htm?type=command&param=udevice&idx=" + idx_list[loopcounter] + "&nvalue=0&svalue=" + str(temp))
@@ -75,3 +76,4 @@ if __name__ == '__main__':
 		  #print(message)
 		  requests.get(DOMOTICZ_IP + "/json.htm?type=command&param=addlogmessage&message=" + message)
           loopcounter += 1
+      time.sleep(1)
