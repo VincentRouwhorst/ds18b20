@@ -1,30 +1,15 @@
 #!/usr/bin/python3
 # python 3.6
-#--------------------------------------
-#
-#              ds18b20.py
-#  Read DS18B20 1-wire temperature sensor
-#
-# Author : Matt Hawkins
-# Date   : 10/02/2015
-#
-# http://www.raspberrypi-spy.co.uk/
-#
-#--------------------------------------
-#
-# Addition for updating to Domoticz via MQTT
-#
-# Author : Vincent Rouwhorst
-# Date   : 22/11/2022
-#
-# Domoticz MQTT documentation
-# https://www.domoticz.com/wiki/MQTT#MQTT_to_Domoticz
-#--------------------------------------
 
 import random
 import time
+import statistics
 
 from paho.mqtt import client as mqtt_client
+
+# def average var
+LoopCounter = -1
+Numbers = [[],[],[],[]]
 
 # MQTT settings
 broker = '127.0.0.1'
@@ -33,8 +18,8 @@ port = 1883
 topic = "domoticz/in"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-username = 'yourusername'
-password = 'yourpassword'
+username = 'your-username'
+password = 'your-password'
 
 # Sensors settings
 # temp min and max value incase of a sensor error
@@ -46,7 +31,26 @@ id_list = ['28-0317303a5bff', '28-0315a87126ff', '28-0315a88e3bff', '28-0517608a
 id_name = ['Temp Aquarium : ', 'Temp Aquarium koeler warm : ', 'Temp1 : ', 'Temp-licht : ']
 idx_list = ['333', '332', '331', '7391']
 
-
+def average(x, i):
+    global LoopCounter
+    # max memory positions
+    max = 4
+    # number of digits to return
+    digits = 2
+    if LoopCounter >= 0 and LoopCounter < max-1:
+        LoopCounter +=1
+    elif LoopCounter >= max-1 or LoopCounter == -1:
+        LoopCounter = 0
+    #fill list
+    if len(Numbers[i]) < max:
+        Numbers[i].insert(LoopCounter, x)
+    elif len(Numbers[i]) == max:
+        Numbers[i][LoopCounter] = x
+    result = round(statistics.mean(Numbers[i]), digits)
+    #print(i)
+    #print(Numbers[i])
+    #print(result)
+    return result
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -95,7 +99,7 @@ def publish(client):
                 #msg = f"messages: {msg_count}"
                 begin_sl_char = "{"
                 end_sl_char = "}"
-                msg = f"{begin_sl_char}\"idx\" : {idx_list[loopcounter]}, \"nvalue\" : 0,  \"svalue\" : \"{str(temp)}\"{end_sl_char}"
+                msg = f"{begin_sl_char}\"idx\" : {idx_list[loopcounter]}, \"nvalue\" : 0,  \"svalue\" : \"{str(average(temp, loopcounter))}\"{end_sl_char}"
                 result = client.publish(topic, msg)
                 # result: [0, 1]
                 status = result[0]
